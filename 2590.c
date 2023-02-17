@@ -23,29 +23,28 @@
 4
 */
 
-int main()
-{
-	int money,cap,price,water,bottle;
-	cap=0; bottle=0; water=0;
-	while (scanf("%d%d",&price,&money) != EOF )
-	{ 
-		while (cap >= 7 || bottle >= 3 ||  money >= price)
-		{
-			if ( cap >= 7)
-			{
-				cap -= 7;
-			}
-			else if( bottle >= 3)
-			{
-				bottle -= 3;
-			}
-			else if ( money >= price)
-			{
-				money -= price;
-			}
-			bottle++; cap++; water++;
-		}
-    	printf("%d\n",water);
-	}
-	return 0;
+int main() {
+    int price;
+    int money;
+    while (~scanf("%d %d", &price, &money)) {
+        int ans = 0;
+        int leftBottleCnt = 0;
+        int leftCapCnt = 0;
+        // 当钱还能买水，或还有机会兑换水的时候就循环操作
+        while (money >= price || leftBottleCnt >= 3 || leftCapCnt >= 7) {
+            if (money >= price) {
+                money -= price;
+            } 
+            else if (leftBottleCnt >= 3) {
+                leftBottleCnt -= 3;
+            }
+            else if (leftCapCnt >= 7) {
+                leftCapCnt -= 7;
+            }
+            ans++;
+            leftBottleCnt++;
+            leftCapCnt++;
+        }
+        printf("%d\n", ans);
+    }
 }
