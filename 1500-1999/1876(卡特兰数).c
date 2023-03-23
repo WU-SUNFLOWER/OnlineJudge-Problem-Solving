@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 /*
-卡兰特数包括递推式和通项两种形式，这里仅展现基于递推式的解法
-关于卡兰特数，详见参考资料：
+鍗″叞鐗规暟鍖呮嫭閫掓帹寮忓拰閫氶」涓ょ褰㈠紡锛岃繖閲屼粎灞曠幇鍩轰簬閫掓帹寮忕殑瑙ｆ硶
+鍏充簬鍗″叞鐗规暟锛岃瑙佸弬鑰冭祫鏂欙細
 https://zhuanlan.zhihu.com/p/391237550
 https://zhuanlan.zhihu.com/p/56821103
 */
