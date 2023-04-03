@@ -24,6 +24,6 @@ int main() {
             break;
         }
     }
-    printf("Êä³ö½á¹û£º");
+    printf("è¾“å‡ºç»“æžœï¼š");
     printf(ans ? "Yes" : "No");
 }
