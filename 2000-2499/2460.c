@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#define N 30
 #define min(x,y) (x < y ? x : y)
 #define max(x, y) (x > y ? x : y)
 
@@ -8,7 +10,7 @@ typedef struct edge {
     int v1;
     int v2;
     int weight;
-} Edge;
+} *Edge;
 
 Edge createEdge(int v1, int v2, int weight) {
     Edge e = (Edge)malloc(sizeof(struct edge));
@@ -29,21 +31,45 @@ int cmp(const void* e1, const void* e2) {
 // 通过节点名称查询到节点编号
 int nameToId[0x7f];
 // 通过节点编号查询到节点名称
-char idToName[100];
+char idToName[N];
 
-int Graph[21][21];
+int Graph[N][N];
+
+int findRoot(int vex, int vexSet[]) {
+    if (vexSet[vex] == vex) {
+        return vex;
+    } else {
+        return (vexSet[vex] = findRoot(vexSet[vex], vexSet));
+    }
+}
+
+bool checkCycle(Edge e, int vexSet[]) {
+    int root1 = findRoot(e->v1, vexSet);
+    int root2 = findRoot(e->v2, vexSet);
+    if (root1 == root2) {
+        return false;
+    } {
+        vexSet[root2] = root1;
+        return true;
+    }
+}
 
 int Kruskal(int num_node, int num_edge, Edge edges[], Edge searchOrder[]) {
     int sum = 0;
     int cnt = 0;  // 记录已收入生成树的边数
     int idx = 0;
+    // 构造并查集数组，用于检测某两个节点是否处于同一连通分量
+    int vexSet[N];
+    for (int i = 0; i < num_node; i++) {
+        vexSet[i] = i;
+    }
     // 事先需要先对所有边按升序排序
     qsort(edges, num_edge, sizeof(Edge), cmp);
     // 当还没收集满num_node-1条边，且图中还有边可供收集时
     while (cnt < num_node - 1 && idx < num_edge) {
         Edge newEdge = edges[idx++];
         // 检测newEdge是否和生成树中已收入的边构成回路
-        if () {
+        if (checkCycle(newEdge, vexSet)) {
             sum += newEdge->weight;
             searchOrder[cnt++] = newEdge;
         }
@@ -71,7 +97,7 @@ int main() {
     char buf[31];
     char v1, v2;
     int weight;
-    int edges[21];
+    Edge edges[N];
     scanf("%d", &num_edge);
     for (int i = 0; i < num_edge; i++) {
         scanf("%s", buf);
@@ -79,7 +105,7 @@ int main() {
         edges[i] = createEdge(nameToId[v1], nameToId[v2], weight);
     }
     // 调用Kruskal算法求出答案
-    Edge searchOrder[21];
+    Edge searchOrder[N];
     int ans = Kruskal(num_node, num_edge, edges, searchOrder);
     if (ans == -1) {
         puts("ERROR");
@@ -88,7 +114,7 @@ int main() {
             Edge edge = searchOrder[i];
             char name1 = idToName[edge->v1];
             char name2 = idToName[edge->v2];
-            printf("%c,%c:%d\n", min(name1, name2), max(name1, name2), newEdge->weight);
+            printf("%c,%c:%d\n", min(name1, name2), max(name1, name2), edge->weight);
         }
         printf("\n%d", ans);
     }
