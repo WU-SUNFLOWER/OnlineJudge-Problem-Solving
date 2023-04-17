@@ -13,22 +13,25 @@ void outputAns() {
 }
 
 /*
-    ÓÉÌâÒâ£¬bottomÊı×éÓ¦¾ßÓĞÈçÏÂĞÔÖÊ£º
-    1. ¶ÔÓÚÆäÖĞµÄÈÎÒ»ÔªËØbottom[i]£¬¶¼ÓĞ0 ¡Ü bottom[i] ¡Ü10;
+    ç”±é¢˜æ„ï¼Œbottomæ•°ç»„åº”å…·æœ‰å¦‚ä¸‹æ€§è´¨ï¼š
+    1. å¯¹äºå…¶ä¸­çš„ä»»ä¸€å…ƒç´ bottom[i]ï¼Œéƒ½æœ‰0 â‰¤ bottom[i] â‰¤10;
     2. bottom[0] + bottom[1] + ... + bottom[9] = 10;
-    3. bottom[i]±íÊ¾¶ÔÓ¦top[i]ÔÚbottomÊı×éÖĞ³öÏÖµÄ´ÎÊı
+    3. bottom[i]è¡¨ç¤ºå¯¹åº”top[i]åœ¨bottomæ•°ç»„ä¸­å‡ºç°çš„æ¬¡æ•°
 */
-bool dfs(int sum) {
-    // Èç¹ûsum»¹Ã»Âú10£¬¾Í³¢ÊÔÔö¼ÓÊı×Ö
-    if (sum < N) {
-        for (int i = 0; i < N; i++) {
-            bottom[i]++;
-            if (dfs(sum + 1)) return true;
-            bottom[i]--;
+bool dfs(int sum, int idx) {
+    // å¦‚æœsumè¿˜æ²¡æ»¡10ï¼Œå°±å°è¯•å¢åŠ æ•°å­—
+    if (sum < N && idx < N) {
+        for (int i = 0; i <= N - sum; i++) {
+            int backup = bottom[idx];
+            bottom[idx] = i;
+            if (dfs(sum + i, idx + 1)) {
+                return true;
+            }
+            bottom[idx] = backup;
         }
         return false;
     }
-    // Èç¹ûsumÒÑ¾­Âú10£¬ÔòĞ£Ñéµ±Ç°×éºÏÊÇ·ñ·ûºÏÌâÒâ
+    // å¦‚æœsumå·²ç»æ»¡10ï¼Œåˆ™æ ¡éªŒå½“å‰ç»„åˆæ˜¯å¦ç¬¦åˆé¢˜æ„
     else if (sum == N) {
         int cnt;
         for (int i = 0; i < N; i++) {
@@ -41,11 +44,12 @@ bool dfs(int sum) {
         outputAns();
         return true;
     }
+    return false;
 }
 
 int main() {
     for (int i = 0; i < N; i++) {
         scanf("%d", &top[i]);
     }
-    dfs(0);
+    dfs(0, 0);
 }

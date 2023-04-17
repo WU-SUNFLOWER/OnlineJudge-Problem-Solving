@@ -11,10 +11,19 @@ int getCount(int num) {
 
 int main() {
     int num;
-    int ans = 0;
+    int tot = 0;
+    int ans[100];
+    int idx = 0;
     scanf("%d", &num);
     for (int i = 1; i <= num; i++) {
-        ans += getCount(i);
+        int cnt = getCount(i);
+        if (cnt > 0) {
+            tot += cnt;
+            ans[idx++] = i;
+        }
     }
-    printf("%d", ans);
+    printf("%d\n", tot);
+    for (int i = idx - 1; i >= 0; i--) {
+        printf(i == 0 ? "%d\n" : "%d ", ans[i]);
+    }
 }
