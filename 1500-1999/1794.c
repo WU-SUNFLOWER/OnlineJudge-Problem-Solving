@@ -5,9 +5,7 @@ int check(char ch) {
     return '0' <= ch && ch <= '9' || 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z';
 }
 
-int main() {
-    char email[100];
-    scanf("%s", email);
+void judgeEmail(char email[]) {
     int len = strlen(email);
     if (
         email[len - 1] == 'm'
@@ -43,5 +41,14 @@ int main() {
         puts(flag ? "YES" : "NO");
     } else {
         puts("NO");
+    }    
+}
+
+int main() {
+    int tot;
+    char email[100];
+    scanf("%d", &tot);
+    while (~scanf("%s", email)) {
+        judgeEmail(email);
     }
 }
