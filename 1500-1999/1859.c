@@ -6,7 +6,7 @@ int main() {
     char words[100][20];
     while (gets(sentence) != NULL) {
         int length = strlen(sentence);
-        // 进行单词切割
+        // 杩涜鍗曡瘝鍒囧壊
         int idx_words = 0;
         int idx_word = 0;
         char buf[100];
@@ -20,7 +20,7 @@ int main() {
             }
         }
         strcpy(words[idx_words++], buf);
-        // 输出反转结果
+        // 杈撳嚭鍙嶈浆缁撴灉
         putchar('"');
         for (int i = idx_words - 1; i >= 0; i--) {
             printf(i == 0 ? "%s" : "%s ", words[i]);
