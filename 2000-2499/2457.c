@@ -67,17 +67,6 @@ char idToName[N];
 
 int Graph[N][N];
 
-// 检测节点是否是叶子节点
-// 检测方法：和叶子节点连通的节点一定都被访问过了
-bool isLeafNode(int node, int parent[], int num_node) {
-    for (int i = 0; i < num_node; i++) {
-        if (Graph[node][i] && parent[i] == -1) {
-            return false;
-        }
-    }
-    return true;
-}
-
 int main() {
     char buf[N];
     int num_node;
@@ -103,35 +92,28 @@ int main() {
         Graph[from_id][to_id] = 1;
         Graph[to_id][from_id] = 1;
     }
-    int parent[N];  
+    int vis[N] = {1, 0};  
     int idx_ans = 0;
     char ans[N];
-    int flag = true;
-    // 将parent数组元素的初始值设为-1
-    // 该数组既可用于父节点记录，也可以作为节点有没有被收入生成树的判断依据
-    memset(parent, 0xff, sizeof(parent));  
     // 对图进行广搜,生成广搜生成树
     Queue queue = createQueue();
     pushToQueue(queue, 0);
     while (queue->size > 0) {
         int cur = popFromQueue(queue);
         for (int i = 0; i < num_node; i++) {
-            // 如果遍历到非邻接节点，或cur节点的父节点，则直接跳过
-            if (!Graph[cur][i] || parent[cur] == i) continue;
-            // 1.碰到一个已经被访问过的邻接节点，则检查是否是叶节点
-            // 1.1 如果不是叶节点的话，则说明当前图不存在广搜生成树，退出循环并输出结果
-            // 1.2 如果是叶节点的话，则当作没看见，继续执行循环
-            // 2. 碰到一个还没被访问过的节点，则正常将其收入队列中，并标记为已访问过
-            if (parent[i] == -1) {
-                parent[i] = cur;
+            if (!vis[i] && Graph[cur][i]) {
+                vis[i] = 1;
                 pushToQueue(queue, i);
                 ans[idx_ans++] = idToName[cur];
                 ans[idx_ans++] = idToName[i];                
             }
-            else if (!isLeafNode(i, parent, num_node)) {
-                flag = false;
-                break;
-            }
+        }
+    }
+    bool flag = true;
+    for (int i = 0; i < num_node; i++) {
+        if (!vis[i]) {
+            flag = false;
+            break;
         }
     }
     if (flag) {

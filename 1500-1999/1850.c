@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define N 250
 
 /*
 参考资料：
@@ -72,7 +73,7 @@ int checkLegalOrder(Stack* stack, int length, int pushOrder[], int popOrder[]) {
 
 /* dfs全排列开始 */
 int OrderIdx = -1;
-int PopOrder[100][100];
+int PopOrder[N][N];
 
 void swap(int* a, int* b) {
     int temp = *a;
@@ -101,7 +102,7 @@ void dfs(int arr[], int k, int length) {
 
 int main() {
     int length;
-    int PushOrder[100];
+    int PushOrder[N];
     scanf("%d", &length);
     //初始化PushOrder数组
     for (int i = 0; i < length; i++) {
@@ -111,13 +112,11 @@ int main() {
     dfs(PushOrder, 0, length);
     //对搜索出来的全排列逐一进行校验，确认其是否为可行的出栈顺序
     for (int i = 0; i <= OrderIdx; i++) {
-        Stack* stack = createStack(100);
+        Stack* stack = createStack(N);
         if (checkLegalOrder(stack, length, PushOrder, PopOrder[i])) {
             for (int j = 0; j < length; j++) {
                 printf(j == length - 1 ? "%d\n" : "%d ", PopOrder[i][j]);
             }
         }
-        //别忘了销毁栈
-        freeStack(stack);
     }
 }
