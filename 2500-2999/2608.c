@@ -67,9 +67,10 @@ int main() {
             }
         }
         scanf("%d", &target);
-        printf("The path of the comparison:");
+        //printf("The path of the comparison:");
         int cnt = search(tree, target, 0);
-        printf("\nThe number of the comparison:%d\n", cnt);
+        //printf("\nThe number of the comparison:%d\n", cnt);
+        printf("\n%d\n", cnt);
         freeTree(tree);
     }
 }

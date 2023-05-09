@@ -13,10 +13,10 @@ Tree createTree(char* layerOrder, char* inOrder, int length) {
     if (length <= 0) {
         return NULL;
     }
-    // ´´½¨×ÓÊ÷¸ù½Úµã
+    // åˆ›å»ºå­æ ‘æ ¹èŠ‚ç‚¹
     TNode root = (TNode)malloc(sizeof(struct trnode));
     char rootValue = root->value = layerOrder[0];
-    //È·¶¨¸ù½ÚµãÔÚÖĞĞò±éÀúĞòÁĞÖĞµÄÎ»ÖÃ
+    //ç¡®å®šæ ¹èŠ‚ç‚¹åœ¨ä¸­åºéå†åºåˆ—ä¸­çš„ä½ç½®
     int rootIdx;
     for (int i = 0; i < length; i++) {
         if (inOrder[i] == rootValue) {
@@ -24,7 +24,7 @@ Tree createTree(char* layerOrder, char* inOrder, int length) {
             break;
         }
     }
-    // Éú³É×ó×ÓÊ÷ºÍÓÒ×ÓÊ÷µÄ²ãĞò±éÀúĞòÁĞ
+    // ç”Ÿæˆå·¦å­æ ‘å’Œå³å­æ ‘çš„å±‚åºéå†åºåˆ—
     int k1 = 0; 
     int k2 = 0;
     char leftLayerOrder[N];
@@ -41,7 +41,7 @@ Tree createTree(char* layerOrder, char* inOrder, int length) {
             }
         }
     }
-    // µİ¹éÉú³É×óÓÒ×ÓÊ÷
+    // é€’å½’ç”Ÿæˆå·¦å³å­æ ‘
     root->left = createTree(leftLayerOrder, inOrder, k1);
     root->right = createTree(rightLayerOrder, inOrder + k1 + 1, k2);
     return root;
@@ -83,7 +83,7 @@ int main() {
         scanf("%s %s", layerOrder, inOrder);
         Tree tree = createTree(layerOrder, inOrder, strlen(inOrder));
         preOrderTraverse(tree);
-        putchar('\n');
+        putchar(' ');
         postOrderTraverse(tree);
         putchar('\n');
         freeTree(tree);

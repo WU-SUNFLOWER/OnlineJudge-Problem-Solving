@@ -26,12 +26,14 @@ int main() {
     // 获取节点总数
     scanf("%d", &nodeNum);
     // 建树
+    int ans;
     for (int i = 1; i <= nodeNum; i++) {
         int l, r;
         scanf("%d %d", &l, &r);
         leftChild[i] = l;
         rightChild[i] = r;
+        if (i == nodeNum) ans = l;
     }
     // dfs搜索
-    printf("%d\n", dfs(leftChild, rightChild, 1, 1));
+    printf("%d %d\n", dfs(leftChild, rightChild, 1, 1), ans);
 }

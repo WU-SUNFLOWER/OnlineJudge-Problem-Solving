@@ -5,15 +5,15 @@ typedef enum {false, true} bool;
 
 typedef struct trnode {
     char value;
-    bool leftTag;  // 0±íÊ¾leftÖ¸ÕëÖ¸Ïò½ÚµãµÄ×ó×ÓÊ÷£¬1±íÊ¾Ö¸Ïò½ÚµãµÄÇ°Çı
-    bool rightTag;  // 0±íÊ¾rightÖ¸ÕëÖ¸Ïò½ÚµãµÄÓÒ×ÓÊ÷£¬1±íÊ¾Ö¸Ïò½ÚµãµÄºó¼Ì
+    bool leftTag;  // 0è¡¨ç¤ºleftæŒ‡é’ˆæŒ‡å‘èŠ‚ç‚¹çš„å·¦å­æ ‘ï¼Œ1è¡¨ç¤ºæŒ‡å‘èŠ‚ç‚¹çš„å‰é©±
+    bool rightTag;  // 0è¡¨ç¤ºrightæŒ‡é’ˆæŒ‡å‘èŠ‚ç‚¹çš„å³å­æ ‘ï¼Œ1è¡¨ç¤ºæŒ‡å‘èŠ‚ç‚¹çš„åç»§
     struct trnode* left;
     struct trnode* right;
 } *TNode, *Tree;
 
 Tree createTree(char str[], int* offset) {
     char value = str[(*offset)++];
-    if (value == ' ' || value == '\0') {
+    if (value == '#' || value == '\0') {
         return NULL;
     } else {
         TNode node = (TNode)malloc(sizeof(struct trnode));
@@ -40,39 +40,39 @@ Tree createThreadedTree(TNode node, TNode* preNodePointer) {
     if (node == NULL) {
         return NULL;
     }
-    //µİ¹é±éÀú×ó×ÓÊ÷
+    //é€’å½’éå†å·¦å­æ ‘
     createThreadedTree(node->left, preNodePointer);
-    //Îªµ±Ç°½ÚµãÉèÖÃÇ°Çı
+    //ä¸ºå½“å‰èŠ‚ç‚¹è®¾ç½®å‰é©±
     TNode preNode = *preNodePointer;
     if (!node->left && !node->leftTag) {
         node->left = preNode;
         node->leftTag = 1;
     }
-    //ÎªÇ°Çı½ÚµãÉèÖÃºó¼Ì
+    //ä¸ºå‰é©±èŠ‚ç‚¹è®¾ç½®åç»§
     if (preNode && !preNode->right && !preNode->rightTag) {
         preNode->right = node;
         preNode->rightTag = 1;
     }
-    //½«×ÔÉíÉèÖÃÎªÖĞĞò±éÀúµÃµ½ÏÂÒ»¸ö½ÚµãµÄÇ°Çı½Úµã
+    //å°†è‡ªèº«è®¾ç½®ä¸ºä¸­åºéå†å¾—åˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹çš„å‰é©±èŠ‚ç‚¹
     *preNodePointer = node;
-    //µİ¹é±éÀúÓÒ×ÓÊ÷
+    //é€’å½’éå†å³å­æ ‘
     createThreadedTree(node->right, preNodePointer);
     return node;
 }
 
 void inOrderTraverse(Tree tree) {
     while (tree) {
-        //±éÀú×ó×ÓÊ÷,Ö±ÖÁÅöµ½×î×ó±ßµÄÒ¶½Úµã
+        //éå†å·¦å­æ ‘,ç›´è‡³ç¢°åˆ°æœ€å·¦è¾¹çš„å¶èŠ‚ç‚¹
         while (!tree->leftTag) {
             tree = tree->left;
         }
         putchar(tree->value);
-        //»ØËİÊä³ö±éÀúÂ·¾¶ÉÏµÄ¸¸½Úµã
+        //å›æº¯è¾“å‡ºéå†è·¯å¾„ä¸Šçš„çˆ¶èŠ‚ç‚¹
         while (tree->rightTag) {
             tree = tree->right;
             putchar(tree->value);
         }
-        //×ªÏòÓÒ×ÓÊ÷
+        //è½¬å‘å³å­æ ‘
         tree = tree->right;
     }
 }
@@ -83,12 +83,12 @@ int main() {
     scanf("%d", &t);
     getchar();
     while (t--) {
-        //´´½¨¶ş²æÊ÷£¬²¢ÇÒ×ª»»³ÉÏßË÷¶ş²æÊ÷
+        //åˆ›å»ºäºŒå‰æ ‘ï¼Œå¹¶ä¸”è½¬æ¢æˆçº¿ç´¢äºŒå‰æ ‘
         gets(str);
         int offset = 0;
         TNode preNode = NULL;
         Tree tree = createThreadedTree(createTree(str, &offset), &preNode);
-        //ÀûÓÃÏßË÷¶ş²æÊ÷µÄÌØĞÔ½øĞĞÖĞĞò±éÀú
+        //åˆ©ç”¨çº¿ç´¢äºŒå‰æ ‘çš„ç‰¹æ€§è¿›è¡Œä¸­åºéå†
         inOrderTraverse(tree);
         putchar('\n');
         destroyTree(tree);
