@@ -54,6 +54,5 @@ int main() {
     int cnt;
     int pos;
     kmp(str, sub, next, &cnt, &pos);
-    //printf(cnt ? "%d %d" : "%d", cnt, pos);
-    printf("%d\n", cnt);
+    printf(cnt ? "%d %d" : "%d", cnt, pos);
 }

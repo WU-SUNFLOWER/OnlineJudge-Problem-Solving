@@ -1,55 +1,49 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
-	int k,len1,l;
-    char a[100];
-    char c[100];
-	scanf("����i=%d,len=%d,j=%d",&k,&len1,&l);
-    do {
-        gets(a);
-    } while (strlen(a) < 5);
-    do {
-        gets(c);
-    } while (strlen(c) < 5);
-	int b[10000]= {0},d[10000]= {0},m,n;
-	m=0;
-	for(int i=0; i < strlen(a); i++ ) {
-		if(( a[i] >= '0' && a[i] <= '9')||a[i]==' ') {
-			if(a[i]!=' ') {
-				b[m]=b[m]*10+a[i]-'0';
-			} else if(i == strlen(a) - 1) {
-				b[m]=b[m]*10+a[i]-'0';
-				m++;
-			} else {
-				m++;
-			}
-		}
-	}
-	n=0;
-	for(int i=0; i < strlen(c); i++ ) {
-		if(( c[i] >= '0' && c[i] <= '9')||c[i]==' ') {
-			if(c[i]!=' ') {
-				d[n]=d[n]*10+c[i]-'0';
+void removeElem(int ar[], int i, int* length) {
+    for (int j = i; j <= *length - 2; j++) {
+        ar[j] = ar[j + 1];
+    }
+    *length -= 1;
+}
 
-			} else if(i == strlen(c) - 1) {
-				d[n]=d[n]*10+c[i]-'0';
-				n++;
-			} else {
-				n++;
-			}
-		}
-	}
-	for(int j=k-1; j<=m; j++) {
-		b[j]=b[j+len1];
-	}
-	for(int j=0; j<l-1; j++) {
-        printf("%d ", d[j]);
-	}
-	for(int j=0; j<=m-len1; j++) {
-        printf("%d ", b[j]);
-	}
-	for(int j=l-1; j<=n; j++) {
-        printf("%d ", d[j]);
-	}
+void insertElem(int ar[], int i, int elem, int* length) {
+    for (int j = *length - 1; j >= i; j--) {
+        ar[j + 1] = ar[j];
+    }
+    ar[i] = elem;
+    *length += 1;
+}
+
+int main() {
+    int i, j, len;
+    scanf("i=%d,len=%d,j=%d", &i, &len, &j);
+    int ar1[100];
+    int ar2[100];
+    int ar1_new[100];
+    int len_ar1 = 0;
+    int len_ar2 = 0;
+    i--;
+    j--;
+    // 读取ar1
+    while (scanf("%d", ar1 + len_ar1) && ar1[len_ar1] != -1) {
+        len_ar1++;
+    }
+    // 读取ar2
+    while (scanf("%d", ar2 + len_ar2) && ar2[len_ar2] != -1) {
+        len_ar2++;
+    }
+    // 从ar1中删除元素
+    for (int k = 0; k < len; k++) {
+        removeElem(ar1, i, &len_ar1);
+    }
+    // 向ar2中插入元素
+    for (int k = 0; k < len_ar1; k++) {
+        insertElem(ar2, j + k, ar1[k], &len_ar2);
+    }
+    // 打印ar2
+    for (int k = 0; k < len_ar2; k++) {
+        printf("%d ", ar2[k]);
+    }
 }
