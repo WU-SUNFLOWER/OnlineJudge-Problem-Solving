@@ -44,6 +44,6 @@ int main() {
     }
     // 打印ar2
     for (int k = 0; k < len_ar2; k++) {
-        printf("%d ", ar2[k]);
+        printf(k == len_ar2 - 1 ? "%d\n" : "%d ", ar2[k]);
     }
 }
