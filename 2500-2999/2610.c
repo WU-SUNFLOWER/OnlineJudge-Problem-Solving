@@ -58,7 +58,7 @@ int main() {
         }
         // dfs整张图
         int ans_weight = 0;
-        char path[N] = {1, 0};
+        char path[N] = {start, 0};
         char ans_path[N] = {0};
         dfs(start, 1, 0, end, path, &ans_weight, ans_path);
         // 输出答案

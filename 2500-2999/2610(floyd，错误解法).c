@@ -1,6 +1,25 @@
 #include <stdio.h>
-#define Infinity 1 << 30
+#define Infinity 1 << 15
 #define N 35
+
+/*
+此种做法有误！
+Floyd(及尝试对其进行改造)并无法保证生成字典序最小的路径!
+
+反例如下：
+9 11
+1 2 1
+2 5 1
+1 3 1
+3 5 1
+1 4 1
+4 5 1
+2 9 3
+5 7 1
+7 9 1
+5 8 1
+8 9 1
+*/
 
 int main() {
     int num_node;
@@ -27,7 +46,8 @@ int main() {
         for (int k = 1; k <= num_node; k++) {
             for (int i = 1; i <= num_node; i++) {
                 for (int j = 1; j <= num_node; j++) {
-                    if (dist[i][k] + dist[k][j] > dist[i][j]) {
+                    int newDist = dist[i][k] + dist[k][j];
+                    if (newDist > dist[i][j]) {
                         dist[i][j] = dist[i][k] + dist[k][j];
                         parent[i][j] = parent[k][j];
                     }
@@ -40,6 +60,7 @@ int main() {
         int ans[2 * N];
         int idx = 0;
         while (cur != 1) {
+            printf("cur=%d\n", cur);
             ans[idx] = parent[1][cur];
             ans[idx + 1] = cur;
             cur = parent[1][cur];
