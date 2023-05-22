@@ -12,12 +12,9 @@ int num_edge;
 void dfs(int cur, int cur_count, int cur_weight, int end, char path[], int* ans_weight, char ans_path[]) {
     // 如果抵达终点则记录结果并退出
     if (cur == end) {
-        // 如果找到了字典序更小的路径
-        // PS: 这一步比较字典序其实是没意义的，因为这里的dfs按节点编号从小到大搜索
+        // 因为这里的dfs按节点编号从小到大搜索
         // 因此最先搜索到的关键路径一定是字典序最小的！！！
-        if (*ans_weight == cur_weight && strcmp(path, ans_path) < 0) {
-            strcpy(ans_path, path);
-        } else if (*ans_weight < cur_weight) {
+        if (*ans_weight < cur_weight) {
             *ans_weight = cur_weight;
             strcpy(ans_path, path);
         }

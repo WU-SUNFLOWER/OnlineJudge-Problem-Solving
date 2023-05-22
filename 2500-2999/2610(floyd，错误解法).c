@@ -7,18 +7,18 @@
 Floyd(及尝试对其进行改造)并无法保证生成字典序最小的路径!
 
 反例如下：
-9 11
+8 11
 1 2 1
-2 5 1
 1 3 1
-3 5 1
 1 4 1
+2 5 1
+2 8 3
+3 5 1
 4 5 1
-2 9 3
 5 7 1
-7 9 1
-5 8 1
-8 9 1
+5 6 1
+7 8 1
+6 8 1
 */
 
 int main() {
@@ -49,6 +49,9 @@ int main() {
                     int newDist = dist[i][k] + dist[k][j];
                     if (newDist > dist[i][j]) {
                         dist[i][j] = dist[i][k] + dist[k][j];
+                        parent[i][j] = parent[k][j];
+                    }
+                    else if (newDist > 0 && newDist == dist[i][j] && parent[k][j] > 0 && parent[i][j] > parent[k][j]) {
                         parent[i][j] = parent[k][j];
                     }
                 }
