@@ -1,24 +1,24 @@
 #include <stdio.h>
 
 /*
-ÊäÈëÒ»¸ö×Ö·ûÅÐ¶ÏÒ»ÏÂÊÇÐÇÆÚ¼¸¡£Çë¸ù¾ÝÐÇÆÚ¼¸µÄµÚÒ»¸ö´óÐ´×ÖÄ¸À´ÅÐ¶Ï£¬²¢Ñ­»·ÊäÈë£¬
-µ±ÊäÈë¡¯Y¡¯Ê±ÍË³ö³ÌÐò¡£Èç¹ûµÚÒ»¸öÊäÈëµÄ×Ö·ûÎª´óÐ´µÄ¡¯W¡¯, ÔòÊä³ö¡±Wednesday¡±£»
-ÈôÎª´óÐ´µÄ¡¯S¡¯£¬ÔòÐèÒª¿¼ÂÇÊäÈëµÄµÚ¶þ¸ö×Ö·û¡£Èç¹ûÊäÈëµÄµÚ¶þ¸ö×Ö·ûÊÇ¡¯u¡¯»ò¡¯a¡¯£¬
-ÔòÕë¶ÔSu»òSaÊä³ö¡±Sunday¡±»ò¡±Saturday¡±£¬È»ºó´Óu»òaÖ®ºóÊäÈëµÄ×Ö·û¼ÌÐø½øÐÐÅÐ¶ÏÊä³ö£»
-Èç¹ûÊäÈëÁËÒ»¸ö²»Æ¥ÅäµÄ×Ö·û£¬¾ÍÕë¶Ô´óÐ´µÄ¡¯S¡¯Êä³ö¡±Wrong data¡±£¬È»ºó´ÓÕâ¸ö²»Æ¥ÅäµÄ×Ö·û¿ªÊ¼¼ÌÐø½øÐÐÅÐ¶ÏÊä³ö¡£
+è¾“å…¥ä¸€ä¸ªå­—ç¬¦åˆ¤æ–­ä¸€ä¸‹æ˜¯æ˜ŸæœŸå‡ ã€‚è¯·æ ¹æ®æ˜ŸæœŸå‡ çš„ç¬¬ä¸€ä¸ªå¤§å†™å­—æ¯æ¥åˆ¤æ–­ï¼Œå¹¶å¾ªçŽ¯è¾“å…¥ï¼Œ
+å½“è¾“å…¥â€™Yâ€™æ—¶é€€å‡ºç¨‹åºã€‚å¦‚æžœç¬¬ä¸€ä¸ªè¾“å…¥çš„å­—ç¬¦ä¸ºå¤§å†™çš„â€™Wâ€™, åˆ™è¾“å‡ºâ€Wednesdayâ€ï¼›
+è‹¥ä¸ºå¤§å†™çš„â€™Sâ€™ï¼Œåˆ™éœ€è¦è€ƒè™‘è¾“å…¥çš„ç¬¬äºŒä¸ªå­—ç¬¦ã€‚å¦‚æžœè¾“å…¥çš„ç¬¬äºŒä¸ªå­—ç¬¦æ˜¯â€™uâ€™æˆ–â€™aâ€™ï¼Œ
+åˆ™é’ˆå¯¹Suæˆ–Saè¾“å‡ºâ€Sundayâ€æˆ–â€Saturdayâ€ï¼Œç„¶åŽä»Žuæˆ–aä¹‹åŽè¾“å…¥çš„å­—ç¬¦ç»§ç»­è¿›è¡Œåˆ¤æ–­è¾“å‡ºï¼›
+å¦‚æžœè¾“å…¥äº†ä¸€ä¸ªä¸åŒ¹é…çš„å­—ç¬¦ï¼Œå°±é’ˆå¯¹å¤§å†™çš„â€™Sâ€™è¾“å‡ºâ€Wrong dataâ€ï¼Œç„¶åŽä»Žè¿™ä¸ªä¸åŒ¹é…çš„å­—ç¬¦å¼€å§‹ç»§ç»­è¿›è¡Œåˆ¤æ–­è¾“å‡ºã€‚
 */
 
 /*
-ÊäÈë:
-Á¬ÐøÊäÈë¶à¸ö×Ö·û£¬×îºóÒÔ¡¯Y¡¯½áÊø¡£
+è¾“å…¥:
+è¿žç»­è¾“å…¥å¤šä¸ªå­—ç¬¦ï¼Œæœ€åŽä»¥â€™Yâ€™ç»“æŸã€‚
 
-Êä³ö:
-Êä³öÃ¿¸ö×Ö·û¶ÔÓ¦µÄÐÇÆÚ¼¸Ó¢ÎÄµ¥´Ê£¨ÈôÊäÈë²»Æ¥Åä×Ö·û£¬ÔòÊä³ö¡±Wrong data¡±£©¡£
+è¾“å‡º:
+è¾“å‡ºæ¯ä¸ªå­—ç¬¦å¯¹åº”çš„æ˜ŸæœŸå‡ è‹±æ–‡å•è¯ï¼ˆè‹¥è¾“å…¥ä¸åŒ¹é…å­—ç¬¦ï¼Œåˆ™è¾“å‡ºâ€Wrong dataâ€ï¼‰ã€‚
 
-ÑùÀýÊäÈë:
+æ ·ä¾‹è¾“å…¥:
 TTuFL&WY
 
-ÑùÀýÊä³ö:
+æ ·ä¾‹è¾“å‡º:
 Wrong data
 Tuesday
 Friday
@@ -26,8 +26,8 @@ Wrong data
 Wrong data
 Wednesday
 
-ÌáÊ¾:
-ÌáÊ¾£ºÊäÈëµÄ×îºóÒ»¸ö×Ö·û±ØÐëÒªÊÇ¡¯Y¡¯£¬ÒÔ±íÊ¾ÍË³ö³ÌÐò¡£¶à¸ö×Ö·ûÖ®¼ä²»ÒªÓÐ»Ø³µ¼ü¡£
+æç¤º:
+æç¤ºï¼šè¾“å…¥çš„æœ€åŽä¸€ä¸ªå­—ç¬¦å¿…é¡»è¦æ˜¯â€™Yâ€™ï¼Œä»¥è¡¨ç¤ºé€€å‡ºç¨‹åºã€‚å¤šä¸ªå­—ç¬¦ä¹‹é—´ä¸è¦æœ‰å›žè½¦é”®ã€‚
 */
 
 /*
@@ -39,8 +39,8 @@ Friday
 Saturday
 Sunday
 
-Ð¡Ð´£ºu¡¢h¡¢a¡¢t
-´óÐ´£ºM¡¢T¡¢W¡¢F¡¢S
+å°å†™ï¼šuã€hã€aã€t
+å¤§å†™ï¼šMã€Tã€Wã€Fã€S
 */
 
 int main() {
@@ -52,7 +52,7 @@ int main() {
 		if (ch == 'Y') {
 			break;
 		}
-		//´¦ÀíÌØÊâ´óÐ´×ÖÄ¸
+		//å¤„ç†ç‰¹æ®Šå¤§å†™å­—æ¯
 		else if (ch == 'T') {
 			switch (nextCh) {
 				case 'u':
@@ -81,7 +81,7 @@ int main() {
 					printf("Wrong data\n");
 			}
 		}
-		//´¦ÀíÆäËû´óÐ´×ÖÄ¸
+		//å¤„ç†å…¶ä»–å¤§å†™å­—æ¯
 		else {
 			switch (ch) {
 				case 'M':
