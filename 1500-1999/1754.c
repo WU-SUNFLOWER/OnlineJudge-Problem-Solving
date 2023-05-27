@@ -1,59 +1,37 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 #include <stdlib.h>
 
-typedef struct {
-    int val;
-    int order;
-} ElementType;
-
-void swap(ElementType* p, ElementType* q) {
-    ElementType t = *p;
-    *p = *q;
-    *q = t;
-}
-
-void printArr(ElementType ar[], int length) {
-    for (int i = 0; i < length; i++) {
-        printf(i == length - 1 ? "%d\n" : "%d ", ar[i].val);
-    }
-}
-
-int cmpByOrder(const void* p1, const void* p2) {
-    return ((ElementType*)p1)->order - ((ElementType*)p2)->order;
+//对顺序表中的子序列data[low..high]进行一趟快速排序，返回枢轴下标
+int Partition(int ar[], int low, int high) {
+	int pivot = ar[high];				//枢轴记录关键字保存在pivot中
+	while (low < high) {
+	    while (low < high && ar[low] <= pivot) ++low;
+		ar[high] = ar[low];			//把比枢轴关键字大的记录移到高端
+		while (low < high && ar[high] > pivot) --high;
+		ar[low] = ar[high];			//把比枢轴关键字小的记录移到低端
+	}
+	ar[low] = pivot;		 		//将暂存在data[0]的枢轴记录移到最终位置
+	return low;
 }
 
 int main() {
-    int idx = 0;
-    int length = 0;
-    ElementType ar[100];
-    // ��������
-    while (~scanf("%d", &ar[idx].val) && ar[idx].val != -1) {
-        ar[idx].order = idx;
-        idx++;
-    }
-    // ���泤��
-    length = idx;
-    // ʵ���״ο���
-    int low = 0;
-    int high = length - 2;
-    int pivot = ar[length - 1].val;
-    while (1) {
-        while (ar[low].val < pivot) {
-            low++;
+    char str[100];
+	int ar[100];
+    while (gets(str) != NULL) {
+        int length = 0;
+        char* ptr = strtok(str, " ");
+        while (ptr != NULL) {
+            int num = atoi(ptr);
+            if (num <= 0) break;
+            ar[length++] = num;
+            ptr = strtok(NULL, " ");
         }
-        while (ar[high].val > pivot) {
-            high--;
-        }
-        if (low < high) {
-            swap(&ar[low], &ar[high]);
-        } else {
-            break;
+    	Partition(ar, 0, length - 1);
+        for (int i = 0; i < length; i++) {
+            printf(i == length - 1 ? "%d\n" : "%d ", ar[i]);
         }
     }
-    swap(&ar[low], &ar[length - 1]);
-    // �����������ݣ�ȷ�����˳�򲻱�
-    qsort(&ar[0], low, sizeof(ElementType), &cmpByOrder);
-    qsort(&ar[low + 1], length -low - 1, sizeof(ElementType), &cmpByOrder);
-    // ���
-    printArr(ar, length);
+	return 0;
 }

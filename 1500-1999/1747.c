@@ -14,52 +14,72 @@ Node createNode(int value) {
 }
 
 void printList(Node headNode) {
+    Node nextNode;
     Node curNode = headNode->next;
     while (curNode != NULL) {
-        printf("%d ", curNode->value);
-        curNode = curNode->next;
+        nextNode = curNode->next;
+        printf(nextNode ? "%d " : "%d\n", curNode->value);
+        curNode = nextNode;
+    }
+}
+
+void freeList(Node headNode) {
+    Node curNode = headNode;
+    Node nextNode;
+    while (curNode != NULL) {
+        nextNode = curNode->next;
+        free(curNode);
+        curNode = nextNode;
     }
 }
 
 int main() {
     int size;
-    scanf("%d", &size);
-    // ½¨±í
-    Node newNode;
-    Node headNode = createNode(-1);  // dummy½Úµã
-    Node lastNode = headNode;
-    for (int i = 0; i < size; i++) {
-        newNode = createNode(-1);
-        scanf("%d", &newNode->value);
-        lastNode = lastNode->next = newNode;
-    }
-    // Á´±íÅÅĞò
-    Node preNode = headNode;
-    Node startNode = headNode->next;
-    while (startNode != NULL) {
-        Node lastNode = preNode;
-        Node curNode = startNode;
-        Node nextNode = curNode->next;
-        while (nextNode != NULL) {
-            // ½»»»½Úµã
-            if (curNode->value > nextNode->value) {
-                // ĞŞ¸ÄÇ°Çı½ÚµãµÄnextÖ¸Õë
-                lastNode->next = nextNode;
-                // »º´æÔ­À´µÄºóÇı½Úµã
-                Node newNextNode = nextNode->next;
-                // ¸üĞÂÔ­À´nextNodeµÄnextÖ¸Õë
-                nextNode->next = curNode;
-                // ¸üĞÂÔ­À´µÄcurNodeÖ¸Õë
-                nextNode = curNode->next = newNextNode;
-            } else {
-                curNode = nextNode;
-                nextNode = curNode->next;
-            }
-            lastNode = lastNode->next;
+    while (~scanf("%d", &size)) {
+        // å»ºè¡¨
+        Node newNode;
+        Node headNode = createNode(-1);  // dummyèŠ‚ç‚¹
+        Node lastNode = headNode;
+        Node tailNode;
+        for (int i = 0; i < size; i++) {
+            newNode = createNode(-1);
+            scanf("%d", &newNode->value);
+            lastNode = lastNode->next = newNode;
+            if (i == size - 1) tailNode = newNode;
         }
-        preNode = preNode->next;
-        startNode = startNode->next;
+        // é“¾è¡¨æ’åº
+        while (tailNode != headNode->next) {
+            Node lastNode = headNode;
+            // å†’æ³¡æ’åºä¸­ï¼Œæ¯è½®æ’åºçš„å¼€å§‹èµ·ç‚¹æ˜¯ä¿æŒä¸åŠ¨çš„
+            Node curNode = headNode->next;
+            Node nextNode = curNode->next;
+            while (curNode != tailNode) {
+                // äº¤æ¢èŠ‚ç‚¹
+                if (curNode->value > nextNode->value) {
+                    // ä¿®æ”¹å‰é©±èŠ‚ç‚¹çš„nextæŒ‡é’ˆ
+                    lastNode->next = nextNode;
+                    // ç¼“å­˜åŸæ¥çš„åé©±èŠ‚ç‚¹
+                    Node newNextNode = nextNode->next;
+                    // æ›´æ–°åŸæ¥nextNodeçš„nextæŒ‡é’ˆ
+                    nextNode->next = curNode;
+                    // å¦‚æœåŸæ¥çš„tailèŠ‚ç‚¹è¢«æ¢åˆ°å‰é¢æ¥äº†ï¼Œéœ€è¦æ›´æ–°tailæŒ‡é’ˆ
+                    if (nextNode == tailNode) {
+                        tailNode = curNode;
+                    }
+                    // æ›´æ–°åŸæ¥çš„curNodeæŒ‡é’ˆ
+                    nextNode = curNode->next = newNextNode;
+                } else {
+                    curNode = nextNode;
+                    nextNode = curNode->next;
+                }
+                lastNode = lastNode->next;
+            }
+            // æ›´æ–°tailæŒ‡é’ˆ
+            tailNode = lastNode;
+        }
+        // è¾“å‡ºæ’åºå¥½çš„é“¾è¡¨
+        printList(headNode);
+        // é”€æ¯é“¾è¡¨
+        freeList(headNode);      
     }
-    // Êä³öÅÅĞòºÃµÄÁ´±í
-    printList(headNode);
 }
