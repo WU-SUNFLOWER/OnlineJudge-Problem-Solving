@@ -7,9 +7,9 @@
 int Partition(int ar[], int low, int high) {
 	int pivot = ar[high];				//枢轴记录关键字保存在pivot中
 	while (low < high) {
-	    while (low < high && ar[low] <= pivot) ++low;
+	    while (low < high && ar[low] < pivot) ++low;
 		ar[high] = ar[low];			//把比枢轴关键字大的记录移到高端
-		while (low < high && ar[high] > pivot) --high;
+		while (low < high && ar[high] >= pivot) --high;
 		ar[low] = ar[high];			//把比枢轴关键字小的记录移到低端
 	}
 	ar[low] = pivot;		 		//将暂存在data[0]的枢轴记录移到最终位置
