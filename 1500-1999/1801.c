@@ -42,13 +42,13 @@ void postOrderTraverse(TNode tree[], int curNodeIdx) {
 
 int main() {
     int total;
-    // check[i]=0±íÊ¾µ±Ç°½Úµã²»ÊÇÈÎºÎ½ÚµãµÄ×Ó½Úµã£¬
-    // ·´Ö®±íÊ¾µ±Ç°½ÚµãÊÇÄ³¸ö½ÚµãµÄ×Ó½Úµã¡£
+    // check[i]=0è¡¨ç¤ºå½“å‰èŠ‚ç‚¹ä¸æ˜¯ä»»ä½•èŠ‚ç‚¹çš„å­èŠ‚ç‚¹ï¼Œ
+    // åä¹‹è¡¨ç¤ºå½“å‰èŠ‚ç‚¹æ˜¯æŸä¸ªèŠ‚ç‚¹çš„å­èŠ‚ç‚¹ã€‚
     int check[1001];
     TNode tree[1001];
     scanf("%d", &total);
     for (int n = 1; n <= total; n++) {
-        // ½¨Ê÷
+        // å»ºæ ‘
         int nodeNum;
         scanf("%d", &nodeNum);
         memset(check, 0, sizeof(check));
@@ -61,12 +61,12 @@ int main() {
             tree[i].left = left;
             tree[i].right = right;
         }
-        // È·¶¨¸ù½Úµã
+        // ç¡®å®šæ ¹èŠ‚ç‚¹
         int root = 1;
         while (check[root]) {
             root++;
         }
-        //½øĞĞÏÈĞò¡¢ÖĞĞò¡¢ºóĞø±éÀú
+        //è¿›è¡Œå…ˆåºã€ä¸­åºã€åç»­éå†
         printf("Case %d:\n", n);
         preOrderTraverse(tree, root);
         putchar('\n');

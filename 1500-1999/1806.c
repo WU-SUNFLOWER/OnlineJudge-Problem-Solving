@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* ÉùÃ÷Çø¿ªÊ¼ */
+/* å£°æ˜ŽåŒºå¼€å§‹ */
 typedef struct trnode {
     char value;
     struct trnode* left;
     struct trnode* right;
 } *TNode, *Tree;
-/* ÉùÃ÷Çø½áÊø */
+/* å£°æ˜ŽåŒºç»“æŸ */
 
-/*¶þ²æÊ÷Ä£¿é¿ªÊ¼*/
+/*äºŒå‰æ ‘æ¨¡å—å¼€å§‹*/
 Tree buildTree(char str[], int* offset) {
     char value = str[*offset];
     (*offset)++;
@@ -45,30 +45,30 @@ void preOrderTraverse(TNode node, int ansArr[], int* ansIdx, int depth) {
     preOrderTraverse(node->right, ansArr, ansIdx, depth + 1);
 }
 
-/* ¶þ²æÊ÷Ä£¿é½áÊø */
+/* äºŒå‰æ ‘æ¨¡å—ç»“æŸ */
 
-int compare(int* a, int* b) {
-    return *b - *a;
+int compare(const void* a, const void* b) {
+    return *(int*)b - *(int*)a;
 }
 
 int main() {
     int t;
     char str[1000];
-    int ansArr[1000];  //¼ÇÂ¼ËùÓÐÒ¶½ÚµãµÄÉî¶È
+    int ansArr[1000];  //è®°å½•æ‰€æœ‰å¶èŠ‚ç‚¹çš„æ·±åº¦
     scanf("%d", &t);
     getchar();
     while (t-- > 0) {
         int ans;
         int offset = 0;
         int ansIdx = 0;
-        //½¨Ê÷
+        //å»ºæ ‘
         gets(str);
         Tree tree = buildTree(str, &offset);
-        //±éÀúÊ÷µÄËùÓÐÒ¶½Úµã£¬¼ÆËã³öÃ¿¸öÒ¶½ÚµãµÄÉî¶È£¬²¢½øÐÐÅÅÐò
+        //éåŽ†æ ‘çš„æ‰€æœ‰å¶èŠ‚ç‚¹ï¼Œè®¡ç®—å‡ºæ¯ä¸ªå¶èŠ‚ç‚¹çš„æ·±åº¦ï¼Œå¹¶è¿›è¡ŒæŽ’åº
         preOrderTraverse(tree, ansArr, &ansIdx, 0);
         qsort(ansArr, ansIdx, sizeof(int), compare);
-        //Èç¹ûµ±Ç°Ê÷ÓÐ³¬¹ýÒ»¸öµÄÒ¶½Úµã£¬Ôò´ð°¸Îª×îÉîµÄÁ½¸öÒ¶½ÚµãÉî¶ÈÖ®ºÍ
-        //Èç¹ûµ±Ç°Ê÷Ö»ÓÐÒ»¸öÒ¶½Úµã£¬Ôò´ð°¸ÎªÒ¶½ÚµãÉî¶È+1
+        //å¦‚æžœå½“å‰æ ‘æœ‰è¶…è¿‡ä¸€ä¸ªçš„å¶èŠ‚ç‚¹ï¼Œåˆ™ç­”æ¡ˆä¸ºæœ€æ·±çš„ä¸¤ä¸ªå¶èŠ‚ç‚¹æ·±åº¦ä¹‹å’Œ
+        //å¦‚æžœå½“å‰æ ‘åªæœ‰ä¸€ä¸ªå¶èŠ‚ç‚¹ï¼Œåˆ™ç­”æ¡ˆä¸ºå¶èŠ‚ç‚¹æ·±åº¦+1
         if (ansIdx > 1) {
             ans = ansArr[0] + ansArr[ansIdx - 1];
         } else {

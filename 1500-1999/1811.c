@@ -38,14 +38,14 @@ int main() {
     int nodeNum;
     while (~scanf("%d", &nodeNum)) {
         memset(Heads, -1, sizeof(Heads));
-        //½¨Á¢ÎŞÏòÍ¼
+        //å»ºç«‹æ— å‘å›¾
         for (int i = 1; i < nodeNum; i++) {
             int u, v;
             scanf("%d %d", &u, &v);
             addEdge(u, v);
             addEdge(v, u);
         }
-        //Ã¶¾ÙÊ÷ÉÏµÄÃ¿¸ö½Úµã×÷ÎªdfsÆğµã£¬Çó½âÌâÄ¿
+        //æšä¸¾æ ‘ä¸Šçš„æ¯ä¸ªèŠ‚ç‚¹ä½œä¸ºdfsèµ·ç‚¹ï¼Œæ±‚è§£é¢˜ç›®
         int minRoot = 0;
         int maxHeight = 0;
         for (int i = 1; i <= nodeNum; i++) {
